@@ -1,0 +1,1201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tangential - Novelty-Driven Experimentation Framework</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600&family=IBM+Plex+Serif:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'IBM Plex Serif', serif;
+            background-color: #181c20;
+            color: #e0e0e0;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        .download-section {
+    text-align: center;
+    margin: 60px 0;
+    padding: 40px;
+    background: rgba(255, 181, 241, 0.03);
+    border: 1px solid rgba(255, 181, 241, 0.2);
+    border-radius: 2px;
+}
+
+    .download-btn {
+        display: inline-block;
+        font-family: 'IBM Plex Mono', monospace;
+        background: #ffb5f1;
+        color: #181c20;
+        padding: 12px 30px;
+        text-decoration: none;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        font-weight: 500;
+        font-size: 0.9rem;
+        transition: all 0.3s ease;
+        border: 2px solid #ffb5f1;
+    }
+
+    .download-btn:hover {
+        background: transparent;
+        color: #ffb5f1;
+    }
+
+    .download-section h3 {
+        color: #69f8fa;
+        margin-bottom: 15px;
+        font-size: 1.3rem;
+    }
+
+    .download-section p {
+        color: #ccc;
+        margin-bottom: 25px;
+        font-size: 0.95rem;
+    }
+
+        /* Typography */
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'IBM Plex Mono', monospace;
+            font-weight: 500;
+        }
+
+        .mono-text {
+            font-family: 'IBM Plex Mono', monospace;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 60px;
+            position: relative;
+        }
+
+        .header .brand {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 1rem;
+            color: #ffb5f1;
+            letter-spacing: 0.2em;
+            margin-bottom: 20px;
+            text-transform: lowercase;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 400;
+            margin-bottom: 20px;
+            color: #69f8fa;
+            letter-spacing: -0.02em;
+        }
+
+        .header .subtitle {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.9rem;
+            color: #888;
+            margin-bottom: 30px;
+            font-weight: 300;
+        }
+
+        .philosophy-card {
+            background: linear-gradient(135deg, rgba(255, 181, 241, 0.03) 0%, rgba(105, 248, 250, 0.03) 100%);
+            border-radius: 2px;
+            padding: 40px;
+            margin-bottom: 60px;
+            border: 1px solid rgba(255, 181, 241, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .philosophy-card::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(105, 248, 250, 0.05) 0%, transparent 70%);
+            animation: pulse 6s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.3; }
+            50% { transform: scale(1.1); opacity: 0.6; }
+        }
+
+        .philosophy-card h2 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: #ffb5f1;
+            position: relative;
+            z-index: 1;
+            font-weight: 400;
+        }
+
+        .philosophy-card .principles {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .principle {
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 2px;
+            padding: 20px;
+            border: 1px solid rgba(105, 248, 250, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .principle:hover {
+            transform: translateY(-2px);
+            border-color: #69f8fa;
+            background: rgba(105, 248, 250, 0.05);
+        }
+
+        .principle h3 {
+            color: #69f8fa;
+            margin-bottom: 10px;
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        .principle p {
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        .levels-container {
+            display: grid;
+            gap: 40px;
+            margin-top: 40px;
+        }
+
+        .level-card {
+            background: rgba(255, 255, 255, 0.01);
+            border-radius: 2px;
+            padding: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .level-card.active {
+            border-color: #ffb5f1;
+            background: rgba(255, 181, 241, 0.02);
+        }
+
+        .level-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            cursor: pointer;
+        }
+
+        .level-header h3 {
+            font-size: 1.5rem;
+            color: #ffb5f1;
+            font-weight: 400;
+        }
+
+        .level-type {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.8rem;
+            color: #69f8fa;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-weight: 300;
+        }
+
+        .level-description {
+            margin-bottom: 30px;
+            color: #ccc;
+            font-size: 1rem;
+            line-height: 1.8;
+        }
+
+        .process-steps {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .process-steps.show {
+            display: block;
+            opacity: 1;
+        }
+
+        .step {
+            background: rgba(255, 255, 255, 0.01);
+            border-radius: 2px;
+            padding: 25px;
+            margin-bottom: 20px;
+            border-left: 2px solid #69f8fa;
+            position: relative;
+            transition: all 0.3s ease;
+            z-index: 1;
+        }
+
+        .step:hover {
+            transform: translateX(5px);
+            border-left-color: #ffb5f1;
+            background: rgba(255, 181, 241, 0.02);
+            z-index: 10;
+        }
+
+        .step-number {
+            font-family: 'IBM Plex Mono', monospace;
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            background: #ffb5f1;
+            color: #181c20;
+            text-align: center;
+            line-height: 30px;
+            margin-right: 15px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .step h4 {
+            display: inline-block;
+            color: #69f8fa;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+            font-weight: 400;
+        }
+
+        .step p {
+            margin-left: 45px;
+            color: #ddd;
+            line-height: 1.8;
+            font-size: 0.95rem;
+        }
+
+        .step .emphasis {
+            color: #ffb5f1;
+            font-weight: 500;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.9rem;
+        }
+
+        /* Overlay Tooltip Styles */
+        .step-overlay {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%) translateY(-10px);
+            background: rgb(24, 28, 32);
+            background-color: rgb(24, 28, 32);
+            border: 1px solid #69f8fa;
+            border-radius: 2px;
+            padding: 20px;
+            width: 90%;
+            max-width: 500px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 9999;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 1), 0 0 40px rgba(105, 248, 250, 0.2);
+            backdrop-filter: none;
+            pointer-events: none;
+        }
+
+        .step:hover .step-overlay {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(10px);
+            pointer-events: auto;
+        }
+
+        .step-overlay::before {
+            content: '';
+            position: absolute;
+            top: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 8px solid transparent;
+            border-right: 8px solid transparent;
+            border-bottom: 8px solid #69f8fa;
+        }
+
+        .step-overlay::after {
+            content: '';
+            position: absolute;
+            top: -7px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 8px solid transparent;
+            border-right: 8px solid transparent;
+            border-bottom: 8px solid #181c20;
+        }
+
+        .step-overlay h5 {
+            color: #ffb5f1;
+            font-size: 1rem;
+            margin-bottom: 12px;
+            font-weight: 400;
+        }
+
+        .step-overlay p {
+            margin: 0;
+            color: #ddd;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        .step-overlay ul {
+            margin: 10px 0 0 20px;
+            padding: 0;
+            color: #ddd;
+            font-size: 0.9rem;
+        }
+
+        .step-overlay li {
+            margin-bottom: 5px;
+        }
+
+        .step-overlay .mono-text {
+            color: #69f8fa;
+            font-size: 0.85rem;
+        }
+
+        .toggle-btn {
+            font-family: 'IBM Plex Mono', monospace;
+            background: transparent;
+            color: #69f8fa;
+            border: 1px solid #69f8fa;
+            padding: 8px 20px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-weight: 400;
+        }
+
+        .toggle-btn:hover {
+            background: #69f8fa;
+            color: #181c20;
+        }
+
+        .quote {
+            background: linear-gradient(135deg, rgba(255, 181, 241, 0.05), rgba(105, 248, 250, 0.05));
+            border-radius: 2px;
+            padding: 25px;
+            margin: 30px 0;
+            border-left: 2px solid #ffb5f1;
+            font-style: italic;
+            color: #ddd;
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+
+        .footer-note {
+            text-align: center;
+            margin-top: 80px;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.8rem;
+            color: #666;
+        }
+
+        .footer-note .brand {
+            color: #ffb5f1;
+        }
+
+        .brand-link {
+            text-decoration: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .brand-link:hover {
+            opacity: 0.8;
+        }
+
+        /* Tab Navigation Styles */
+        .tab-navigation {
+            display: flex;
+            justify-content: center;
+            gap: 2px;
+            margin-bottom: 40px;
+        }
+
+        .tab-btn {
+            font-family: 'IBM Plex Mono', monospace;
+            background: transparent;
+            color: #69f8fa;
+            border: 1px solid rgba(105, 248, 250, 0.3);
+            padding: 12px 30px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-weight: 400;
+        }
+
+        .tab-btn:first-child {
+            border-radius: 2px 0 0 2px;
+        }
+
+        .tab-btn:last-child {
+            border-radius: 0 2px 2px 0;
+        }
+
+        .tab-btn:hover {
+            background: rgba(105, 248, 250, 0.1);
+        }
+
+        .tab-btn.active {
+            background: #69f8fa;
+            color: #181c20;
+            border-color: #69f8fa;
+        }
+
+        /* Example Content Styles */
+        .example-container {
+            background: rgba(255, 255, 255, 0.01);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+            padding: 40px;
+        }
+
+        .example-content {
+            display: none;
+        }
+
+        .example-content.active {
+            display: block;
+        }
+
+        .example-content h3 {
+            color: #ffb5f1;
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            font-weight: 400;
+        }
+
+        /* Timeline Styles */
+        .example-timeline {
+            position: relative;
+            padding-left: 140px;
+        }
+
+        .example-timeline::before {
+            content: '';
+            position: absolute;
+            left: 115px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, #69f8fa, #ffb5f1);
+            opacity: 0.3;
+        }
+
+        .timeline-step {
+            position: relative;
+            margin-bottom: 40px;
+            padding-left: 30px;
+        }
+
+        .timeline-marker {
+            position: absolute;
+            left: -140px;
+            top: 0;
+            background: #ffb5f1;
+            color: #181c20;
+            padding: 4px 12px;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.8rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            width: 90px;
+            text-align: center;
+        }
+
+        .timeline-marker::after {
+            content: '';
+            position: absolute;
+            right: -8px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 8px;
+            height: 8px;
+            background: #69f8fa;
+            border: 2px solid #181c20;
+        }
+
+        .timeline-content h4 {
+            color: #69f8fa;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            font-weight: 400;
+        }
+
+        .timeline-content p {
+            color: #ddd;
+            line-height: 1.7;
+            font-size: 0.95rem;
+        }
+
+        .timeline-content .emphasis {
+            color: #ffb5f1;
+            font-weight: 500;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .level-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+            
+            .level-header h3 {
+                font-size: 1.2rem;
+            }
+            
+            .philosophy-card {
+                padding: 25px;
+            }
+
+            .tab-navigation {
+                flex-direction: column;
+                gap: 0;
+            }
+
+            .tab-btn {
+                border-radius: 0;
+                width: 100%;
+            }
+
+            .tab-btn:first-child {
+                border-radius: 2px 2px 0 0;
+            }
+
+            .tab-btn:last-child {
+                border-radius: 0 0 2px 2px;
+            }
+
+            .example-timeline {
+                padding-left: 20px;
+            }
+
+            .timeline-marker {
+                position: relative;
+                left: auto;
+                top: auto;
+                display: block;
+                margin-bottom: 10px;
+                width: auto;
+                text-align: left;
+            }
+
+            .timeline-marker::after {
+                display: none;
+            }
+
+            .example-timeline::before {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="brand"><a href="https://tangential.ch" class="brand">tangential</a></div>
+            <h1>Novelty-Driven Experimentation Framework</h1>
+            <p class="subtitle">Based on Kenneth O. Stanley's "Why Greatness Cannot Be Planned"</p>
+        </div>
+
+        <div class="philosophy-card">
+            <h2>Core Philosophy: Abandon Objectives, Embrace Novelty</h2>
+            <div class="quote">
+                "The greatest discoveries come not from pursuing objectives, but from following what's interesting and novel. Each experiment is a stepping stone to unknown possibilities."
+            </div>
+            <div class="principles">
+                <div class="principle">
+                    <h3>No Fixed Destinations</h3>
+                    <p>Great innovations emerge when we stop aiming for specific outcomes and start exploring what's interesting.</p>
+                </div>
+                <div class="principle">
+                    <h3>Novelty Search</h3>
+                    <p>Focus on finding experiments that are different from what you've done before, not "better" by some metric.</p>
+                </div>
+                <div class="principle">
+                    <h3>Stepping Stones</h3>
+                    <p>Each experiment, regardless of "success," becomes a stepping stone to discoveries you couldn't have imagined.</p>
+                </div>
+                <div class="principle">
+                    <h3>Interestingness Filter</h3>
+                    <p>Let curiosity and interestingness guide your next experiment, not predetermined goals or KPIs.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="levels-container">
+            <!-- Foundational Experiments -->
+            <div class="level-card" data-level="foundational">
+                <div class="level-header" onclick="toggleLevel('foundational')">
+                    <div>
+                        <h3>Foundational Experiments</h3>
+                        <p class="level-type">Pure R&D Exploration</p>
+                    </div>
+                    <button class="toggle-btn">Explore Process</button>
+                </div>
+                <p class="level-description">
+                    Unconstrained exploration where breakthroughs emerge from following curiosity rather than objectives. This is where paradigm shifts are born.
+                </p>
+                <div class="process-steps" id="foundational-steps">
+                    <div class="step">
+                        <span class="step-number">1</span>
+                        <h4>Collect Stepping Stones</h4>
+                        <p>Document all previous experiments, failed or successful. <span class="emphasis">Each is a potential launching point</span>. Create a "museum of experiments" where nothing is judged by traditional success metrics.</p>
+                        <div class="step-overlay">
+                            <h5>Deep Dive: Building Your Museum of Experiments</h5>
+                            <p>This isn't about organizing successes - it's about preserving possibilities. Every "failed" experiment contains seeds of future breakthroughs.</p>
+                            <ul>
+                                <li>Create a <span class="mono-text">novelty archive</span> with visual documentation</li>
+                                <li>Tag experiments by their surprising behaviors, not outcomes</li>
+                                <li>Weekly "museum tours" where team explores old experiments with fresh eyes</li>
+                                <li>Look for patterns in what made past experiments interesting, not successful</li>
+                            </ul>
+                            <p style="margin-top: 10px;">Remember: Today's dead end is tomorrow's breakthrough waiting to happen.</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">2</span>
+                        <h4>Identify Novel Directions</h4>
+                        <p>Ask: "What haven't we tried that's fundamentally different?" <span class="emphasis">Seek maximum behavioral diversity</span> in your experiments. The weirder and more unprecedented, the better.</p>
+                        <div class="step-overlay">
+                            <h5>Deep Dive: Maximizing Behavioral Diversity</h5>
+                            <p>Novelty means genuinely new behaviors, not variations on existing themes. Push beyond comfort zones into unexplored territory.</p>
+                            <ul>
+                                <li>Use <span class="mono-text">novelty metrics</span>: How different is this from everything we've tried?</li>
+                                <li>Combine unrelated domains (biology + databases, art + algorithms)</li>
+                                <li>Ask "What would be impossible?" then try it anyway</li>
+                                <li>Ban phrases like "optimize," "improve," or "better" - seek "different"</li>
+                            </ul>
+                            <p style="margin-top: 10px;">The next breakthrough won't look like a better version of what exists.</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">3</span>
+                        <h4>Follow Interestingness</h4>
+                        <p>Let team members pursue what genuinely excites them. <span class="emphasis">Passion is the compass</span> when there's no destination. Schedule "curiosity sessions" where people share what fascinates them.</p>
+                        <div class="step-overlay">
+                            <h5>Deep Dive: Curiosity as Navigation System</h5>
+                            <p>When you abandon objectives, interestingness becomes your GPS. Trust the pull of genuine fascination.</p>
+                            <ul>
+                                <li>Weekly <span class="mono-text">curiosity sprints</span>: 4 hours to explore any tangent</li>
+                                <li>Document what made you say "that's weird!" or "wait, what?"</li>
+                                <li>Create cross-pollination sessions between different curiosities</li>
+                                <li>Protect exploration time from productivity metrics</li>
+                            </ul>
+                            <p style="margin-top: 10px;">The most interested person in the room often finds the most interesting solution.</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">4</span>
+                        <h4>Rapid Exploration Cycles</h4>
+                        <p>Build minimal versions to test novel behaviors quickly. <span class="emphasis">Speed enables more stepping stones</span>. Think hours or days, not weeks. Quantity breeds quality through diversity.</p>
+                        <div class="step-overlay">
+                            <h5>Deep Dive: Speed as a Feature</h5>
+                            <p>Perfection kills novelty. Rough prototypes that explore new behaviors beat polished versions of old ideas.</p>
+                            <ul>
+                                <li>Time-box to <span class="mono-text">4-hour experiments</span> maximum</li>
+                                <li>Build to test behavior, not to ship</li>
+                                <li>Measure experiments per week, not completion rate</li>
+                                <li>"Does it do something new?" not "Does it work well?"</li>
+                            </ul>
+                            <p style="margin-top: 10px;">100 weird prototypes will yield more breakthroughs than 10 polished products.</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">5</span>
+                        <h4>Document the Journey</h4>
+                        <p>Record what you learned, not whether you "succeeded." <span class="emphasis">Every experiment teaches something unexpected</span>. Focus on surprises, anomalies, and "that's weird" moments.</p>
+                        <div class="step-overlay">
+                            <h5>Deep Dive: Learning from Surprises</h5>
+                            <p>Traditional documentation kills novelty by focusing on results. Document discoveries, not deliverables.</p>
+                            <ul>
+                                <li>Create <span class="mono-text">surprise journals</span> for each experiment</li>
+                                <li>Video record "wait, that's not supposed to happen" moments</li>
+                                <li>Weekly sharing of best surprises, not best results</li>
+                                <li>Tag unexpected behaviors for future exploration</li>
+                            </ul>
+                            <p style="margin-top: 10px;">The most valuable outcome is often what you didn't expect to find.</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">6</span>
+                        <h4>Cross-Pollinate Wildly</h4>
+                        <p>Combine unrelated experiments. <span class="emphasis">Innovation happens at unexpected intersections</span>. The most interesting stepping stones often come from bizarre combinations.</p>
+                        <div class="step-overlay">
+                            <h5>Deep Dive: Combinatorial Explosion</h5>
+                            <p>The space between unrelated ideas is where magic happens. Force collisions between different experiments.</p>
+                            <ul>
+                                <li>Monthly <span class="mono-text">experiment mashup</span> sessions</li>
+                                <li>Randomly pair team members from different experiments</li>
+                                <li>Ask "What if we combined X with Y?" for wildly different X and Y</li>
+                                <li>Celebrate bizarre combinations that "shouldn't work"</li>
+                            </ul>
+                            <p style="margin-top: 10px;">Today's crazy combination is tomorrow's revolutionary platform.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Business Oriented Experiments -->
+            <div class="level-card" data-level="business">
+                <div class="level-header" onclick="toggleLevel('business')">
+                    <div>
+                        <h3>Business-Oriented Experiments</h3>
+                        <p class="level-type">Innovation Within Constraints</p>
+                    </div>
+                    <button class="toggle-btn">Explore Process</button>
+                </div>
+                <p class="level-description">
+                    Balancing novelty search with business realities. Here we seek stepping stones that could lead to value, without predetermining what that value must be.
+                </p>
+                <div class="process-steps" id="business-steps">
+                    <div class="step">
+                        <span class="step-number">1</span>
+                        <h4>Map the Adjacent Possible</h4>
+                        <p>Identify experiments one step away from current capabilities. <span class="emphasis">Evolution, not revolution</span>. What's the most interesting thing we could try without breaking everything?</p>
+                        <div class="step-overlay">
+                            <h5>Deep Dive: Exploring the Edge of Possibility</h5>
+                            <p>The adjacent possible is where business value meets novelty. It's one step into the unknown, not a leap into chaos.</p>
+                            <ul>
+                                <li>Map current capabilities as <span class="mono-text">novelty nodes</span></li>
+                                <li>Identify "one mutation away" experiments</li>
+                                <li>Ask "What would customers find surprising but not scary?"</li>
+                                <li>Build bridges between familiar and fascinating</li>
+                            </ul>
+                            <p style="margin-top: 10px;">Business breakthroughs live at the edge of comfort, not beyond it.</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">2</span>
+                        <h4>Create Safe Spaces for Novelty</h4>
+                        <p>Allocate resources for "interesting failures." <span class="emphasis">20% time for stepping stones</span>. Protect experimenters from traditional performance metrics during exploration.</p>
+                        <div class="step-overlay">
+                            <h5>Deep Dive: Innovation Sandboxes</h5>
+                            <p>Traditional metrics kill novelty. Create protected spaces where interesting matters more than profitable.</p>
+                            <ul>
+                                <li>Establish <span class="mono-text">novelty budgets</span> separate from R&D</li>
+                                <li>Measure surprises discovered, not ROI achieved</li>
+                                <li>Celebrate "magnificent failures" that open new doors</li>
+                                <li>Shield teams from quarterly performance reviews</li>
+                            </ul>
+                            <p style="margin-top: 10px;">You can't discover new lands while watching the quarterly compass.</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">3</span>
+                        <h4>Seek Interesting Problems</h4>
+                        <p>Instead of solving predetermined problems, <span class="emphasis">discover problems worth solving</span>. Often the most valuable innovations create their own markets.</p>
+                        <div class="step-overlay">
+                            <h5>Deep Dive: Problem Discovery Engine</h5>
+                            <p>The best problems to solve are the ones nobody knew existed. Let novelty reveal hidden opportunities.</p>
+                            <ul>
+                                <li>Run <span class="mono-text">problem discovery sprints</span></li>
+                                <li>Ask "What behaviors suggest unmet needs?"</li>
+                                <li>Look for workarounds that reveal hidden problems</li>
+                                <li>Follow user surprises to their root causes</li>
+                            </ul>
+                            <p style="margin-top: 10px;">The most valuable problems are discovered, not assigned.</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">4</span>
+                        <h4>Build Novelty Networks</h4>
+                        <p>Connect experiments that seem unrelated. <span class="emphasis">Value emerges from unexpected combinations</span>. Create forums for sharing "failed" experiments that might inspire others.</p>
+                        <div class="step-overlay">
+                            <h5>Deep Dive: Emergence Through Connection</h5>
+                            <p>Business value often emerges from connecting dots nobody thought to connect. Build bridges between islands of novelty.</p>
+                            <ul>
+                                <li>Host monthly <span class="mono-text">collision conferences</span></li>
+                                <li>Create experiment genealogy trees</li>
+                                <li>Reward cross-team experiment combinations</li>
+                                <li>Build "failed experiment" marketplaces</li>
+                            </ul>
+                            <p style="margin-top: 10px;">Your next product might be hiding between two "failed" experiments.</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">5</span>
+                        <h4>Measure Interestingness, Not ROI</h4>
+                        <p>Track: surprises discovered, new capabilities unlocked, behaviors never seen before. <span class="emphasis">Traditional metrics kill novelty</span>. Celebrate learning over earning in this phase.</p>
+                        <div class="step-overlay">
+                            <h5>Deep Dive: Novelty Metrics That Matter</h5>
+                            <p>You can't measure tomorrow's breakthroughs with yesterday's KPIs. Develop metrics that encourage exploration.</p>
+                            <ul>
+                                <li>Track <span class="mono-text">behavioral diversity index</span></li>
+                                <li>Measure "distance from known solutions"</li>
+                                <li>Count unexpected use cases discovered</li>
+                                <li>Reward "that's weird" moments documented</li>
+                            </ul>
+                            <p style="margin-top: 10px;">ROI is a rearview mirror; novelty is the headlight.</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">6</span>
+                        <h4>Evolutionary Pressure, Not Objectives</h4>
+                        <p>Let market interest naturally select which experiments to pursue further. <span class="emphasis">Don't predict, discover</span>. The market will tell you what's valuable in ways you couldn't anticipate.</p>
+                        <div class="step-overlay">
+                            <h5>Deep Dive: Market as Selection Mechanism</h5>
+                            <p>Instead of guessing what customers want, let their behavior guide evolution of experiments.</p>
+                            <ul>
+                                <li>Release <span class="mono-text">experiment streams</span> to small audiences</li>
+                                <li>Watch for unexpected adoption patterns</li>
+                                <li>Follow energy, not projections</li>
+                                <li>Let customer behavior write your roadmap</li>
+                            </ul>
+                            <p style="margin-top: 10px;">The market is smarter than your strategy deck.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Client Oriented Experiments -->
+            <div class="level-card" data-level="client">
+                <div class="level-header" onclick="toggleLevel('client')">
+                    <div>
+                        <h3>Client-Oriented Experiments</h3>
+                        <p class="level-type">Guided Novelty Discovery</p>
+                    </div>
+                    <button class="toggle-btn">Explore Process</button>
+                </div>
+                <p class="level-description">
+                    Helping clients discover what they actually need (not what they think they want) through novelty-driven exploration within project constraints.
+                </p>
+                <div class="process-steps" id="client-steps">
+                    <div class="step">
+                        <span class="step-number">1</span>
+                        <h4>Reframe Objectives as Explorations</h4>
+                        <p>Transform "we need X" into "what if we explored the space around X?" <span class="emphasis">Goals are hypotheses, not destinations</span>. Help clients see their request as a starting point, not endpoint.</p>
+                        <div class="step-overlay">
+                            <h5>Deep Dive: The Art of Reframing</h5>
+                            <p>Client objectives often limit possibilities. Transform constraints into launching pads for discovery.</p>
+                            <ul>
+                                <li>Replace "we need" with <span class="mono-text">"what if we explored"</span></li>
+                                <li>Map the possibility space around their request</li>
+                                <li>Show how their goal might be a local maximum</li>
+                                <li>Present objectives as experiments to validate</li>
+                            </ul>
+                            <p style="margin-top: 10px;">The best solution might be to a problem they haven't articulated yet.</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">2</span>
+                        <h4>Rapid Novelty Prototypes</h4>
+                        <p>Build 5 wildly different approaches in the time usually spent perfecting one. <span class="emphasis">Diversity reveals possibilities</span>. Show clients futures they couldn't imagine.</p>
+                        <div class="step-overlay">
+                            <h5>Deep Dive: Possibility Explosion</h5>
+                            <p>One polished solution blinds clients to alternatives. Multiple weird prototypes open their eyes to what's possible.</p>
+                            <ul>
+                                <li>Create <span class="mono-text">prototype spectrums</span> from safe to wild</li>
+                                <li>Include one "impossible" prototype that breaks all rules</li>
+                                <li>Build to provoke "I didn't know that was possible"</li>
+                                <li>Present all prototypes as equals, not variations</li>
+                            </ul>
+                            <p style="margin-top: 10px;">Clients can't want what they can't imagine. Show them.</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">3</span>
+                        <h4>Co-create Stepping Stones</h4>
+                        <p>Involve clients in the experimentation process. <span class="emphasis">Their surprises guide the path</span>. Watch what genuinely excites them, not what they say they want.</p>
+                        <div class="step-overlay">
+                            <h5>Deep Dive: Discovery Partnerships</h5>
+                            <p>Clients are co-explorers, not customers. Their genuine reactions reveal hidden needs better than any brief.</p>
+                            <ul>
+                                <li>Run <span class="mono-text">co-creation workshops</span> without agendas</li>
+                                <li>Document their "wow" moments, not feedback</li>
+                                <li>Let them play with experiments hands-on</li>
+                                <li>Follow their curiosity tangents religiously</li>
+                            </ul>
+                            <p style="margin-top: 10px;">Watch their eyes, not their requirements doc.</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">4</span>
+                        <h4>Document Unexpected Value</h4>
+                        <p>Highlight discoveries that weren't in the brief. <span class="emphasis">The best solutions solve problems clients didn't know they had</span>. Create a "surprise journal" for each project.</p>
+                        <div class="step-overlay">
+                            <h5>Deep Dive: Value Discovery Documentation</h5>
+                            <p>Traditional deliverables hide the magic. Document the journey of discovery, not just the destination.</p>
+                            <ul>
+                                <li>Maintain <span class="mono-text">discovery logs</span> throughout project</li>
+                                <li>Highlight "brief vs. discovery" deltas</li>
+                                <li>Create before/after vision comparisons</li>
+                                <li>Show how initial request evolved through exploration</li>
+                            </ul>
+                            <p style="margin-top: 10px;">The real value is often what wasn't asked for.</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">5</span>
+                        <h4>Iterative Novelty Refinement</h4>
+                        <p>Each iteration explores new territory informed by previous surprises. <span class="emphasis">Evolution through interestingness</span>. Let the solution emerge rather than be designed.</p>
+                        <div class="step-overlay">
+                            <h5>Deep Dive: Emergent Solution Design</h5>
+                            <p>Solutions aren't built, they're discovered. Each iteration should reveal new possibilities, not polish old ones.</p>
+                            <ul>
+                                <li>Plan iterations as <span class="mono-text">exploration sprints</span></li>
+                                <li>Each cycle must try something fundamentally new</li>
+                                <li>Follow surprise threads between iterations</li>
+                                <li>Resist convergence until magic appears</li>
+                            </ul>
+                            <p style="margin-top: 10px;">The best solution emerges; it isn't engineered.</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">6</span>
+                        <h4>Deliver Possibilities, Not Just Products</h4>
+                        <p>Show clients the stepping stones that led to the solution. <span class="emphasis">They're buying a journey of discovery</span>. Include "failed" experiments that might inspire future innovations.</p>
+                        <div class="step-overlay">
+                            <h5>Deep Dive: Possibility Portfolios</h5>
+                            <p>Clients receive not just a solution, but a map of unexplored territories and future potential.</p>
+                            <ul>
+                                <li>Create <span class="mono-text">experiment genealogies</span> showing evolution</li>
+                                <li>Package "failed" experiments as future opportunities</li>
+                                <li>Provide novelty toolkit for continued exploration</li>
+                                <li>Frame delivery as beginning, not end</li>
+                            </ul>
+                            <p style="margin-top: 10px;">You're not delivering a product; you're opening a universe.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="philosophy-card" style="margin-top: 60px;">
+            <h2>Remember: The Paradox of Objectives</h2>
+            <p style="font-size: 1rem; line-height: 1.8; color: #ddd;">
+                The most ambitious goals are achieved by not aiming for them directly. By following novelty and interestingness, we create stepping stones to greatness that no amount of planning could have discovered. Each experiment, regardless of its "success," expands the adjacent possible and opens doors we didn't know existed.
+            </p>
+            <div class="quote" style="margin-top: 20px;">
+                "In the search for novelty, failure doesn't exist – only stepping stones to the unimaginable."
+            </div>
+        </div>
+        <!-- Download Section -->
+    <div class="download-section">
+        <h3>Get the Complete Handbook</h3>
+        <p>Download our comprehensive LaTeX booklet featuring all processes, tools, and extended guidance for implementing the Novelty-Driven Experimentation Framework.</p>
+        <a href="https://drive.google.com/file/d/11ma-_TTfqpcftphN4g11XjPOlTtvuL4E/view?usp=drive_link" target="_blank" class="download-btn">Download PDF Handbook</a>
+    </div>
+
+        <!-- Examples Section -->
+        <div class="examples-section" style="margin-top: 80px;">
+            <h2 style="text-align: center; color: #ffb5f1; margin-bottom: 40px; font-size: 1.8rem; font-weight: 400;">Concrete Examples</h2>
+            
+            <!-- Tab Navigation -->
+            <div class="tab-navigation">
+                <button class="tab-btn active" onclick="showExample('foundational-example')">Foundational</button>
+                <button class="tab-btn" onclick="showExample('business-example')">Business</button>
+                <button class="tab-btn" onclick="showExample('client-example')">Client</button>
+            </div>
+
+            <!-- Example Contents -->
+            <div class="example-container">
+                <!-- Foundational Example -->
+                <div id="foundational-example" class="example-content active">
+                    <h3>The Walking Algorithm Discovery</h3>
+                    <div class="example-timeline">
+                        <div class="timeline-step">
+                            <div class="timeline-marker">Start</div>
+                            <div class="timeline-content">
+                                <h4>Original "Goal": Build a better search algorithm</h4>
+                                <p>Team abandons this objective entirely. Instead asks: "What's the weirdest way we could make algorithms move through data?"</p>
+                            </div>
+                        </div>
+                        <div class="timeline-step">
+                            <div class="timeline-marker">Stone 1</div>
+                            <div class="timeline-content">
+                                <h4>Physical simulation of data</h4>
+                                <p>Someone suggests: "What if data points had gravity?" Team builds visualization where algorithms literally walk through 3D data landscapes.</p>
+                            </div>
+                        </div>
+                        <div class="timeline-step">
+                            <div class="timeline-marker">Stone 2</div>
+                            <div class="timeline-content">
+                                <h4>Algorithms that evolve legs</h4>
+                                <p>Fascinated by walking metaphor, team creates algorithms that evolve different "gaits" for different data terrains. No practical value yet, just interesting.</p>
+                            </div>
+                        </div>
+                        <div class="timeline-step">
+                            <div class="timeline-marker">Stone 3</div>
+                            <div class="timeline-content">
+                                <h4>Accidental pattern discovery</h4>
+                                <p>Watching algorithms "stumble" reveals they naturally find anomalies in data - they literally trip over outliers. This wasn't the goal, just a surprise.</p>
+                            </div>
+                        </div>
+                        <div class="timeline-step">
+                            <div class="timeline-marker">Emergence</div>
+                            <div class="timeline-content">
+                                <h4>Revolutionary fraud detection</h4>
+                                <p>The "walking" approach becomes foundation for new fraud detection system that finds patterns no traditional algorithm could see. <span class="emphasis">Success through abandoning success.</span></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Business Example -->
+                <div id="business-example" class="example-content">
+                    <h3>The Spotify Discover Weekly Journey</h3>
+                    <div class="example-timeline">
+                        <div class="timeline-step">
+                            <div class="timeline-marker">Start</div>
+                            <div class="timeline-content">
+                                <h4>Adjacent Possible: "What else can playlists do?"</h4>
+                                <p>Instead of "improve recommendations," team explores: What's one step beyond current playlists that would be interesting?</p>
+                            </div>
+                        </div>
+                        <div class="timeline-step">
+                            <div class="timeline-marker">Stone 1</div>
+                            <div class="timeline-content">
+                                <h4>Playlists that expire</h4>
+                                <p>Someone suggests ephemeral playlists. Not clearly valuable, but interestingly different. Built in a day, tested with employees.</p>
+                            </div>
+                        </div>
+                        <div class="timeline-step">
+                            <div class="timeline-marker">Stone 2</div>
+                            <div class="timeline-content">
+                                <h4>Monday morning ritual emerges</h4>
+                                <p>Users naturally check their disappearing playlist every Monday. Behavior emerges without being designed. Team follows the surprise.</p>
+                            </div>
+                        </div>
+                        <div class="timeline-step">
+                            <div class="timeline-marker">Stone 3</div>
+                            <div class="timeline-content">
+                                <h4>Social sharing explosion</h4>
+                                <p>Because playlists vanish, people urgently share discoveries. Unplanned viral mechanism. Traditional metrics would have killed this "bug."</p>
+                            </div>
+                        </div>
+                        <div class="timeline-step">
+                            <div class="timeline-marker">Evolution</div>
+                            <div class="timeline-content">
+                                <h4>2 billion streams weekly</h4>
+                                <p>Discover Weekly becomes Spotify's flagship feature. <span class="emphasis">Found by exploring "what's interesting" not "what's profitable."</span></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Client Example -->
+                <div id="client-example" class="example-content">
+                    <h3>The Museum Without Walls</h3>
+                    <div class="example-timeline">
+                        <div class="timeline-step">
+                            <div class="timeline-marker">Brief</div>
+                            <div class="timeline-content">
+                                <h4>Client request: "We need a virtual museum tour"</h4>
+                                <p>Reframed as: "What if we explored how people could experience art differently?" Opens possibility space.</p>
+                            </div>
+                        </div>
+                        <div class="timeline-step">
+                            <div class="timeline-marker">Proto 1</div>
+                            <div class="timeline-content">
+                                <h4>Art that follows you home</h4>
+                                <p>AR app places museum pieces in user's actual living space. Client confused but intrigued. "Not what we asked for, but..."</p>
+                            </div>
+                        </div>
+                        <div class="timeline-step">
+                            <div class="timeline-marker">Proto 2</div>
+                            <div class="timeline-content">
+                                <h4>Artwork conversations</h4>
+                                <p>AI personas of artworks that chat with visitors. Wildly different from brief. Client's excitement reveals hidden need.</p>
+                            </div>
+                        </div>
+                        <div class="timeline-step">
+                            <div class="timeline-marker">Proto 3</div>
+                            <div class="timeline-content">
+                                <h4>Collaborative art creation</h4>
+                                <p>Visitors co-create with famous artists' styles. Nothing like a "tour" anymore. Client: "This is what we actually needed!"</p>
+                            </div>
+                        </div>
+                        <div class="timeline-step">
+                            <div class="timeline-marker">Discovery</div>
+                            <div class="timeline-content">
+                                <h4>Engagement museum, not display museum</h4>
+                                <p>Final solution: Platform for artistic collaboration. <span class="emphasis">Client discovered they didn't want tours, they wanted connection.</span> 10x visitor engagement.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-note">
+            <a href="https://tangential.ch" class="brand-link"><span class="brand">tangential</span></a> · novelty-driven innovation
+        </div>
+    </div>
+
+    <script>
+        function toggleLevel(level) {
+            const card = document.querySelector(`[data-level="${level}"]`);
+            const steps = document.getElementById(`${level}-steps`);
+            const allCards = document.querySelectorAll('.level-card');
+            const allSteps = document.querySelectorAll('.process-steps');
+            
+            // Close all other cards
+            allCards.forEach(c => {
+                if (c !== card) {
+                    c.classList.remove('active');
+                }
+            });
+            
+            allSteps.forEach(s => {
+                if (s !== steps) {
+                    s.classList.remove('show');
+                }
+            });
+            
+            // Toggle current card
+            card.classList.toggle('active');
+            steps.classList.toggle('show');
+        }
+
+        function showExample(exampleId) {
+            // Update tab buttons
+            const allTabs = document.querySelectorAll('.tab-btn');
+            const allExamples = document.querySelectorAll('.example-content');
+            
+            allTabs.forEach(tab => tab.classList.remove('active'));
+            allExamples.forEach(ex => ex.classList.remove('active'));
+            
+            // Activate selected tab and example
+            event.target.classList.add('active');
+            document.getElementById(exampleId).classList.add('active');
+        }
+    </script>
+</body>
+</html>
